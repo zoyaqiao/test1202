@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.14)
+project(12 VERSION 1.0.0)
+# CXX compile flags.
+string(TIMESTAMP DATE_TIME "%Y-%m-%d")
+SET(CMAKE_CXX_STANDARD 14)
+IF (NOT WIN32)
+    SET(LINUX_FLAGS "-Wall -Wno-unused-local-typedefs -pipe -fPIC -DHAVE_CXXABI_H")
+ENDIF ()
+set(CMAKE_CXX_BASE_FLAG "$ENV{CXXFLAGS} ${LINUX_FLAGS} -DHAVE_OPENBLAS -DUSE_CUDA")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_BASE_FLAG} -D_DEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_BASE_FLAG} -D_DO_ENCRYPT")
+
+set(BASE_SOURCE ${PROJECT_SOURCE_DIR}/generateSortTree.cpp)
+
+add_executable(testcase ${PROJECT_SOURCE_DIR}/main.cpp ${BASE_SOURCE})

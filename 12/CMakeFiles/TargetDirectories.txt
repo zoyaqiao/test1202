@@ -1,0 +1,3 @@
+/home/chenqiao/data1/12/CMakeFiles/rebuild_cache.dir
+/home/chenqiao/data1/12/CMakeFiles/testcase.dir
+/home/chenqiao/data1/12/CMakeFiles/edit_cache.dir
