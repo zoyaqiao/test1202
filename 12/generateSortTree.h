@@ -1,6 +1,8 @@
 #ifndef GENERATE_SORT_TREE_H
 #define GENERATE_SORT_TREE_H
 #include <iostream>
+#include <vector>
+#include <string>
 namespace sorttree {
     using namespace std;
 
@@ -26,6 +28,16 @@ namespace sorttree {
         // 生成二叉搜索树
         TreeNode* generateTree();
         TreeNode* generateTree(int start, int end);
+
+        // 遍历二叉树的父类函数
+        vector<int> traversal(TreeNode* root, std::string& flag);
+        // 前序遍历二叉搜索树
+        void preTraversal(TreeNode* root, vector<int>& val);
+        // 中序遍历二叉搜索树
+        void inorderTraversal(TreeNode* root, vector<int>& val);
+        // 后序遍历二叉搜索树
+        void backTraversal(TreeNode* root, vector<int>& val);
+
     private:
         int val;
     };
