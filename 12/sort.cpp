@@ -1,9 +1,15 @@
-#incldue "sort.h"
+#include "sort.h"
+#include <iostream>
 namespace stlSort {
+    void swap(int& a, int& b) {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
     void vectorSort::quickSort(
-            vector<int>& arr, 
-            int& begin, int& end) {
-        if (begin == end) {
+            std::vector<int>& arr, 
+            int begin, int end) {
+        if (begin >= end) {
             return;
         }
         int baseIndex = begin;
@@ -17,17 +23,24 @@ namespace stlSort {
                 ++begin;
             }
             if (begin < end) {
-                swap (arr[begin], arr[end]);;
-            } else if (begin == end) {
+                swap(arr[begin], arr[end]);
+            }
+            if (begin == end) {
                 int coinIndex = begin;
-                if (coinIndex == baseIndex) {
-                    quickSort(arr, coninIndex + 1, baseEnd);
-                } else {
-                    quickSort(arr, baseIndex, coinIndex -1);
-                    quickSort(arr, coinIndex + 1, baseEnd);
+                if (arr[coinIndex] < arr[baseIndex]) {
+                    swap(arr[coinIndex], arr[baseIndex]);
                 }
+                quickSort(arr, baseIndex, coinIndex -1);
+                quickSort(arr, coinIndex + 1, baseEnd);
             }
         }
     }
-
+    void vectorSort::quickSort(std::vector<int>& arr) {
+        int begin = 0;
+        int end = arr.size() - 1;
+        if (end <= 0) {
+            return;
+        }
+        quickSort(arr, begin, end);
+    }
 }

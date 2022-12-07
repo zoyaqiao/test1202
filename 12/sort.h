@@ -6,17 +6,18 @@ namespace stlSort {
 
     class sort {
     public:
-        virtual sort() {};
+        sort() {};
         virtual ~sort() {};
-        virtual void quickSort(vector<int>& arr, int& begin, int& end) = 0;
+        virtual void quickSort(std::vector<int>& arr) = 0;
     };
 
     class vectorSort : public sort {
     public:
         vectorSort() {};
         ~vectorSort() {};
-        void quickSort(vector<int>& arr, int& begin, int& end);
-        
+        void quickSort(std::vector<int>& arr, int begin, int end);
+        void quickSort(std::vector<int>& arr);
+
     };
 
 }

@@ -28,16 +28,12 @@ namespace sorttree {
         if (nullptr == root) {
             return res;
         }
-        switch (flag) {
-            case "前序" :
-                preTraversal(root, res);
-                break
-            case "中序":
-                inorderTraversal(root, res);
-                break;
-            case "后序"
-                backTraversal(root, res);
-                break;
+        if (flag == "前序") {
+            preTraversal(root, res);
+        } else if (flag == "中序") {
+            inorderTraversal(root, res);
+        } else {
+            backTraversal(root, res);
         }
         return res;
     }
