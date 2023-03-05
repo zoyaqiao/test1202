@@ -2,6 +2,8 @@
 #include <vector>
 using namespace std;
 
+void swap(int& a, int& b);
+
 class baseSort {
 public:
     virtual void sort(vector<int>& data) = 0;
@@ -9,6 +11,11 @@ public:
 };
 
 class bubbleSort : public baseSort {
+public:
+    void sort(vector<int>& data);
+};
+
+class bubbleSort2 : public baseSort {
 public:
     void sort(vector<int>& data);
 };
@@ -23,6 +30,30 @@ public:
     void sort(vector<int>& data);
     void sort(vector<int>& data, int begin, int end);
 };
+
+void swap(int& a, int& b) {
+    int tmp = a;
+    a = b;
+    b = tmp;
+}
+
+void bubbleSort2::sort(vector<int>& data) {
+    if (data.size() < 2) return;
+    for (int i = 0; i < data.size() - 1; ++i) {
+        bool swap_flag = false;
+        int EndIndexOfUnswapedElem = data.size() -1;
+        int swapIndex = -1;
+        for (int j = 0; j < EndIndexOfUnswapedElem; ++j) {
+            if (data[j] > data[j + 1]) {
+                swap(data[j], data[j + 1]);
+                swap_flag = true;
+                swapIndex = j;
+            }
+        }
+        if (!swap_flag) break;
+        EndIndexOfUnswapedElem = swapIndex;
+    }
+}
 
 void bubbleSort::sort(vector<int>& data) {
     bool flag = false;
@@ -107,6 +138,11 @@ public:
     baseSort* createSort() { return new bubbleSort(); }
 };
 
+class bubbleFac2 : public factory {
+public:
+    baseSort* createSort() { return new bubbleSort2(); }
+};
+
 class selectFac : public factory {
 public:
     baseSort* createSort() { return new selectSort(); }
@@ -130,8 +166,14 @@ int main() {
     //     cout << d << " ";
     // }
     // 快速排序
-    factory* fac_quick = new quickFac();
-    baseSort* ptr_sort = fac_quick->createSort();
+    // factory* fac_quick = new quickFac();
+    // baseSort* ptr_sort = fac_quick->createSort();
+    // ptr_sort->sort(data3);
+    // for (auto& d : data3) {
+    //     cout << d << " ";
+    // }
+    factory* fac_bubble2 = new bubbleFac2();
+    baseSort* ptr_sort = fac_bubble2->createSort();
     ptr_sort->sort(data3);
     for (auto& d : data3) {
         cout << d << " ";

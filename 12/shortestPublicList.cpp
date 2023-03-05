@@ -50,6 +50,49 @@ string shortestCommonSupersequence(string str1, string str2) {
     // 计算状态转移方程
     int m = str1.size();
     int n = str2.size();
+    str1 = " " + str1;
+    str2 = " " + str2;
+    // 构造一个(m + 1, n + 1) 矩阵
+    vector<vector<int>> f(m + 10, vector<int>(n + 10));
+    // 两重循环对二维数组赋值
+    for (int i = 1; i <= m; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if (str1[i] == str2[j]) {
+                f[i][j] = f[i - 1][j - 1] + 1;
+            } else {
+                f[i][j] = max(f[i - 1][j], f[i][j - 1]);
+            }
+        }
+    }
+    // 逆向回溯进行拼接
+    string res;
+    int s1 = m;
+    int s2 = n;
+    while (s1 != 0 || s2 != 0) {
+        if (s1 == 0) {
+            res.append(1, str2[s2]);
+            --s2;
+        } else if (s2 == 0) {
+            res.append(1, str1[s1]);
+            --s1;
+        } else {
+
+            if (str1[s1] != str2[s2]) {
+                if (f[s1][s2] == f[s1 - 1][s2]) {
+                    res.append(1, str1[s1]);
+                    --s1;
+                } else if (f[s1][s2] == f[s1][s2 - 1]) {
+                    res.append(1, str2[s2]);
+                    --s2;
+                }
+            } else {
+                res.append(1, str1[s1]);
+                --s1;
+                --s2;
+            }
+        }
+    }
+    return res;
 }
 
 int main() {
@@ -58,3 +101,4 @@ int main() {
     cout << shortestCommonSupersequence(s1, s2) << endl;
     return 0;
 }
+ 
